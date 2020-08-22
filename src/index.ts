@@ -1,15 +1,12 @@
 import { config as dotenv } from "dotenv";
 import { MikroORM } from "@mikro-orm/core";
+import mikroConfig from "./mikro-orm.config";
 
 dotenv();
 
 const main = async () => {
-	const { DB_NAME, DB_USER, DB_PASSWORD } = process.env;
-	const orm = await MikroORM.init({
-		dbName: DB_NAME,
-		user: DB_USER,
-		password: DB_PASSWORD
-	});
+	const orm = await MikroORM.init(mikroConfig);
+	await orm.getMigrator().up();
 };
 
-main();
+main().catch(err => console.log(err));
