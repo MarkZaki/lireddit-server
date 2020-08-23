@@ -18,7 +18,8 @@ const main = async () => {
 		schema: await buildSchema({
 			resolvers: [PostResolver],
 			validate: false
-		})
+		}),
+		context: () => ({ db: orm.em })
 	});
 
 	apolloServer.applyMiddleware({ app });
