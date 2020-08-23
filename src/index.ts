@@ -5,6 +5,7 @@ import { buildSchema } from "type-graphql";
 import { config as dotenv } from "dotenv";
 import mikroConfig from "./mikro-orm.config";
 import { PostResolver } from "./resolvers/post";
+import { UserResolver } from "./resolvers/user";
 
 dotenv();
 
@@ -16,7 +17,7 @@ const main = async () => {
 
 	const apolloServer = new ApolloServer({
 		schema: await buildSchema({
-			resolvers: [PostResolver],
+			resolvers: [PostResolver, UserResolver],
 			validate: false
 		}),
 		context: () => ({ db: orm.em })
